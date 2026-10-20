@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Antigravity Coding Quality Kit — Developer Showcase</title>
+  <meta name="description" content="A battle-tested quality framework and agent skill kit for Google Antigravity IDE. Eliminates AI slop, enforces surgical diffs, and guarantees verified code.">
+
+  <!-- Google Fonts: IBM Plex Sans & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            oled: '#080C14',
+            surface: {
+              DEFAULT: '#0F172A',
+              card: '#131D33',
+              hover: '#1B2745',
+              border: '#1E293B',
+              borderHover: '#334155'
+            },
+            brand: {
+              primary: '#3B82F6',
+              secondary: '#60A5FA',
+              accent: '#F97316',
+              emerald: '#10B981',
+              dark: '#1D4ED8'
+            }
+          },
+          fontFamily: {
+            sans: ['"IBM Plex Sans"', 'system-ui', '-apple-system', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'ui-monospace', 'monospace']
+          }
+        }
+      }
+    };
+  </script>
+
+  <style>
+    /* UI/UX Pro Max Custom CSS & Transitions */
+    :root {
+      color-scheme: dark;
+    }
+    body {
+      background-color: #080C14;
+      color: #F8FAFC;
+      font-family: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
+    }
+    
+    /* Subtle background grid */
+    .bg-grid {
+      background-size: 32px 32px;
+      background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    }
+
+    /* Glow highlights */
+    .glow-primary {
+      box-shadow: 0 0 35px -8px rgba(59, 130, 246, 0.35);
+    }
+    .glow-accent {
+      box-shadow: 0 0 35px -8px rgba(249, 115, 22, 0.35);
+    }
+
+    /* Respect reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      *, ::before, ::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+
+    /* Focus visible accessibility ring */
+    button:focus-visible, a:focus-visible, input:focus-visible {
+      outline: 2px solid #3B82F6;
+      outline-offset: 2px;
+    }
+
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #080C14;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #1E293B;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #334155;
+    }
+  </style>
+</head>
+<body class="min-h-screen bg-oled text-slate-100 flex flex-col justify-between selection:bg-blue-600 selection:text-white">
+
+  <!-- Top Navigation Bar -->
+  <header class="sticky top-0 z-50 backdrop-blur-md bg-oled/85 border-b border-surface-border">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <!-- Antigravity Logo SVG -->
+        <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-blue-600 to-indigo-700 flex items-center justify-center text-white shadow-lg shadow-blue-500/20">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+          </svg>
+        </div>
+        <div>
+          <span class="font-bold text-lg tracking-tight text-white flex items-center gap-2">
+            Antigravity <span class="text-xs px-2 py-0.5 rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20 font-mono">Quality Kit</span>
+          </span>
+        </div>
+      </div>
+
+      <!-- Nav Links & Action -->
+      <nav class="flex items-center space-x-4">
+        <a href="#comparison" class="text-sm text-slate-300 hover:text-white transition-colors duration-200 hidden md:inline-block">Comparison</a>
+        <a href="#pillars" class="text-sm text-slate-300 hover:text-white transition-colors duration-200 hidden md:inline-block">9 Pillars</a>
+        <a href="#installation" class="text-sm text-slate-300 hover:text-white transition-colors duration-200 hidden sm:inline-block">Install</a>
+        
+        <a href="https://github.com/angelolockdev/antigravity-coding-quality-kit" target="_blank" rel="noopener noreferrer" 
+           class="inline-flex items-center gap-2 px-3.5 py-2 text-sm font-medium rounded-lg bg-surface-card hover:bg-surface-hover text-slate-200 border border-surface-border hover:border-slate-500 transition-all duration-200 cursor-pointer min-h-[44px]">
+          <svg class="w-4 h-4 text-slate-300" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
+          </svg>
+          <span class="hidden sm:inline">GitHub</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="flex-grow">
+
+    <!-- Hero Section -->
+    <section class="relative pt-16 pb-20 overflow-hidden bg-grid">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+        <!-- Badge -->
+        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/25 text-blue-400 text-xs sm:text-sm font-medium mb-6 animate-pulse">
+          <svg class="w-4 h-4 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+          </svg>
+          Google Antigravity IDE • Global Rules & Agent Skill
+        </div>
+
+        <!-- Headline -->
+        <h1 class="text-4xl sm:text-6xl font-bold tracking-tight text-white mb-6 leading-tight">
+          Surgical Code Quality.<br>
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-300 to-orange-400">
+            Zero Conversational Slop.
+          </span>
+        </h1>
+
+        <!-- Subtitle -->
+        <p class="text-lg sm:text-xl text-slate-300 max-w-3xl mx-auto mb-10 leading-relaxed font-normal">
+          The deterministic engineering system for Antigravity AI agents. Enforces minimal diffs, bans imaginary test passes, and removes polite filler so you ship clean, verified code every turn.
+        </p>
+
+        <!-- CTA Buttons -->
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-14">
+          <a href="#installation" 
+             class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl bg-brand-accent hover:bg-orange-600 text-white font-semibold shadow-lg glow-accent transition-all duration-200 cursor-pointer min-h-[48px]">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+            </svg>
+            Install in 60 Seconds
+          </a>
+          <a href="#comparison" 
+             class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl bg-surface-card hover:bg-surface-hover text-slate-200 border border-surface-border font-medium transition-all duration-200 cursor-pointer min-h-[48px]">
+            <svg class="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+            </svg>
+            See Live Comparison
+          </a>
+        </div>
+
+        <!-- Quick Terminal Command snippet -->
+        <div class="max-w-xl mx-auto rounded-xl bg-surface-card border border-surface-border p-3 flex items-center justify-between text-left shadow-2xl">
+          <div class="flex items-center space-x-3 overflow-hidden">
+            <span class="text-blue-400 font-mono text-sm pl-2 select-none">$</span>
+            <code class="font-mono text-xs sm:text-sm text-slate-200 truncate" id="quick-cmd">git clone https://github.com/angelolockdev/antigravity-coding-quality-kit.git</code>
+          </div>
+          <button onclick="copyQuickCmd()" aria-label="Copy clone command" 
+                  class="ml-3 px-3 py-1.5 rounded-lg bg-surface border border-surface-border hover:border-slate-500 text-slate-300 hover:text-white transition-all text-xs font-mono flex items-center gap-1.5 min-h-[36px] cursor-pointer">
+            <svg id="quick-copy-icon" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+            </svg>
+            <span id="quick-copy-text">Copy</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Key Metrics / Highlights Bar -->
+    <section class="border-y border-surface-border bg-surface/50 py-8">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+          <div>
+            <div class="text-3xl font-bold font-mono text-blue-400">0%</div>
+            <div class="text-sm text-slate-400 mt-1">Conversational Filler</div>
+          </div>
+          <div>
+            <div class="text-3xl font-bold font-mono text-emerald-400">100%</div>
+            <div class="text-sm text-slate-400 mt-1">Verified Test Execution</div>
+          </div>
+          <div>
+            <div class="text-3xl font-bold font-mono text-orange-400">9 Core</div>
+            <div class="text-sm text-slate-400 mt-1">Quality Rule Pillars</div>
+          </div>
+          <div>
+            <div class="text-3xl font-bold font-mono text-purple-400">WCAG AAA</div>
+            <div class="text-sm text-slate-400 mt-1">Contrast & A11y Standard</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Interactive Comparison Section (Before vs After) -->
+    <section id="comparison" class="py-20 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-bold text-white mb-3">The Quality Gap</h2>
+        <p class="text-slate-400 max-w-2xl mx-auto text-base">
+          See the stark contrast between a standard AI assistant and an agent equipped with the Antigravity Coding Quality Kit.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <!-- Without Quality Kit (Bad AI) -->
+        <div class="rounded-2xl bg-surface-card border border-red-900/40 p-6 flex flex-col justify-between shadow-xl relative overflow-hidden">
+          <div class="absolute top-0 right-0 px-4 py-1.5 bg-red-950/80 border-b border-l border-red-800 text-red-300 text-xs font-mono font-bold tracking-wider uppercase rounded-bl-xl">
+            Without Quality Kit
+          </div>
+          <div>
+            <div class="flex items-center gap-2 mb-4 text-red-400 font-semibold text-sm">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <span>Verbose, Unverified, Scope Creep</span>
+            </div>
+
+            <div class="bg-oled rounded-xl p-4 font-mono text-xs text-slate-300 border border-surface-border space-y-3 leading-relaxed">
+              <p class="text-slate-400 italic">"Hello! Sure thing, I'd be more than happy to help you with that! Here is the updated code..."</p>
+              
+              <div class="text-slate-500 py-1 border-y border-surface-border">
+                <span class="text-red-400">// Note: I took the liberty of refactoring your entire database layer and adding 4 dependencies you didn't ask for!</span><br>
+                <span class="text-yellow-500">// Loop through every single item</span><br>
+                items.forEach(item => process(item)); <span class="text-slate-500">// process the item</span>
+              </div>
+
+              <p class="text-slate-400 italic">"I'm confident all your tests and builds pass 100%! Let me know if you have any questions or need anything else! Have a wonderful day!"</p>
+            </div>
+
+            <ul class="mt-6 space-y-2 text-xs text-slate-400">
+              <li class="flex items-center gap-2 text-red-300/80">
+                <svg class="w-4 h-4 text-red-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                Polite greetings and useless filler paragraphs
+              </li>
+              <li class="flex items-center gap-2 text-red-300/80">
+                <svg class="w-4 h-4 text-red-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                Unsolicited architecture rewrites & scope creep
+              </li>
+              <li class="flex items-center gap-2 text-red-300/80">
+                <svg class="w-4 h-4 text-red-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                Hallucinated test results without running them
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- With Quality Kit (Good AI) -->
+        <div class="rounded-2xl bg-surface-card border border-emerald-900/50 p-6 flex flex-col justify-between shadow-2xl relative overflow-hidden glow-primary">
+          <div class="absolute top-0 right-0 px-4 py-1.5 bg-emerald-950/80 border-b border-l border-emerald-800 text-emerald-300 text-xs font-mono font-bold tracking-wider uppercase rounded-bl-xl">
+            With Antigravity Kit
+          </div>
+          <div>
+            <div class="flex items-center gap-2 mb-4 text-emerald-400 font-semibold text-sm">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <span>Instant, Surgical & Verified</span>
+            </div>
+
+            <div class="bg-oled rounded-xl p-4 font-mono text-xs text-slate-200 border border-surface-border space-y-3 leading-relaxed">
+              <div class="text-blue-400 font-semibold">diff --git a/src/auth.ts b/src/auth.ts</div>
+              <div class="bg-surface/80 p-2.5 rounded border border-surface-border">
+                <span class="text-red-400">- return user.token === inputToken;</span><br>
+                <span class="text-emerald-400">+ // Constant-time comparison to prevent timing attacks</span><br>
+                <span class="text-emerald-400">+ return crypto.timingSafeEqual(user.tokenBuffer, inputBuffer);</span>
+              </div>
+
+              <div class="text-slate-300 text-[11px] pt-1">
+                <span class="text-emerald-400 font-bold">Checks executed:</span><br>
+                ✓ <code class="text-slate-200">npm test tests/auth.spec.ts</code> (4 passed in 312ms)<br>
+                ✓ <code class="text-slate-200">npm run lint</code> (0 errors, 0 warnings)
+              </div>
+            </div>
+
+            <ul class="mt-6 space-y-2 text-xs text-slate-300">
+              <li class="flex items-center gap-2 text-emerald-300/90">
+                <svg class="w-4 h-4 text-emerald-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                Leads directly with actionable solution
+              </li>
+              <li class="flex items-center gap-2 text-emerald-300/90">
+                <svg class="w-4 h-4 text-emerald-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                Smallest complete change without accidental rewrites
+              </li>
+              <li class="flex items-center gap-2 text-emerald-300/90">
+                <svg class="w-4 h-4 text-emerald-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                Only reports tests that actually executed and passed
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 9 Core Pillars Grid -->
+    <section id="pillars" class="py-20 bg-surface/30 border-y border-surface-border">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+          <div class="inline-block px-3 py-1 rounded-full bg-blue-500/10 text-blue-400 font-mono text-xs mb-3">
+            Deterministic Standards
+          </div>
+          <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4">The 9 Quality Pillars</h2>
+          <p class="text-slate-400 max-w-2xl mx-auto text-base">
+            Every prompt processed by Antigravity is governed by this cohesive set of software engineering principles.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          
+          <!-- Pillar 1 -->
+          <div class="rounded-xl bg-surface-card border border-surface-border p-6 hover:border-blue-500/40 hover:bg-surface-hover transition-all duration-200">
+            <div class="w-10 h-10 rounded-lg bg-blue-500/10 text-blue-400 flex items-center justify-center font-mono font-bold text-sm mb-4">
+              01
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2">Mission & Hierarchy</h3>
+            <p class="text-slate-400 text-sm leading-relaxed">
+              Strict conflict resolution ordering. System safety > User explicit prompt > Project conventions > Kit guidelines > Stylistic desires.
+            </p>
+          </div>
+
+          <!-- Pillar 2 -->
+          <div class="rounded-xl bg-surface-card border border-surface-border p-6 hover:border-blue-500/40 hover:bg-surface-hover transition-all duration-200">
+            <div class="w-10 h-10 rounded-lg bg-blue-500/10 text-blue-400 flex items-center justify-center font-mono font-bold text-sm mb-4">
+              02
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2">Zero-Filler Responses</h3>
+            <p class="text-slate-400 text-sm leading-relaxed">
+              Immediate results. Banned pleasantries, greetings, and generic recaps. Communicates in the user's language without chain-of-thought dumps.
+            </p>
+          </div>
+
+          <!-- Pillar 3 -->
+          <div class="rounded-xl bg-surface-card border border-surface-border p-6 hover:border-blue-500/40 hover:bg-surface-hover transition-all duration-200">
+            <div class="w-10 h-10 rounded-lg bg-blue-500/10 text-blue-400 flex items-center justify-center font-mono font-bold text-sm mb-4">
+              03
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2">Risk-Scaled Planning</h3>
+            <p class="text-slate-400 text-sm leading-relaxed">
+              No ceremonial plans for tiny edits. Multi-step tasks plan atomically. Inspect before editing; never claim an action is reversible.
+            </p>
+          </div>
+
+          <!-- Pillar 4 -->
+          <div class="rounded-xl bg-surface-card border border-surface-border p-6 hover:border-blue-500/40 hover:bg-surface-hover transition-all duration-200">
+            <div class="w-10 h-10 rounded-lg bg-blue-500/10 text-blue-400 flex items-center justify-center font-mono font-bold text-sm mb-4">
+              04
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2">Surgical Code Edits</h3>
+            <p class="text-slate-400 text-sm leading-relaxed">
+              Smallest complete change. Preserves existing user modifications, public APIs, and patterns. Rejects speculative abstractions and rewrites.
+            </p>
+          </div>
+
+          <!-- Pillar 5 -->
+          <div class="rounded-xl bg-surface-card border border-surface-border p-6 hover:border-blue-500/40 hover:bg-surface-hover transition-all duration-200">
+            <div class="w-10 h-10 rounded-lg bg-blue-500/10 text-blue-400 flex items-center justify-center font-mono font-bold text-sm mb-4">
+              05
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2">Why-Only Comments</h3>
+            <p class="text-slate-400 text-sm leading-relaxed">
+              Self-documenting code is default. Comments are strictly reserved for subtle invariants, business rules, or non-obvious workarounds.
+            </p>
+          </div>
+
+          <!-- Pillar 6 -->
+          <div class="rounded-xl bg-surface-card border border-surface-border p-6 hover:border-blue-500/40 hover:bg-surface-hover transition-all duration-200">
+            <div class="w-10 h-10 rounded-lg bg-blue-500/10 text-blue-400 flex items-center justify-center font-mono font-bold text-sm mb-4">
+              06
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2">Context7 Real-Time Docs</h3>
+            <p class="text-slate-400 text-sm leading-relaxed">
+              When current library or SDK syntax is needed, invokes Context7 CLI (`ctx7`) to verify exact API behavior instead of relying on memory.
+            </p>
+          </div>
+
+          <!-- Pillar 7 -->
+          <div class="rounded-xl bg-surface-card border border-surface-border p-6 hover:border-blue-500/40 hover:bg-surface-hover transition-all duration-200">
+            <div class="w-10 h-10 rounded-lg bg-blue-500/10 text-blue-400 flex items-center justify-center font-mono font-bold text-sm mb-4">
+              07
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2">Strict Test Execution</h3>
+            <p class="text-slate-400 text-sm leading-relaxed">
+              Runs narrowest checks first. Never claims tests or linters passed unless executed in the terminal and observed in stdout.
+            </p>
+          </div>
+
+          <!-- Pillar 8 -->
+          <div class="rounded-xl bg-surface-card border border-surface-border p-6 hover:border-blue-500/40 hover:bg-surface-hover transition-all duration-200">
+            <div class="w-10 h-10 rounded-lg bg-blue-500/10 text-blue-400 flex items-center justify-center font-mono font-bold text-sm mb-4">
+              08
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2">Honest Reporting</h3>
+            <p class="text-slate-400 text-sm leading-relaxed">
+              Compact report: concrete changes, checks actually run, and explicit disclosure of any skipped checks or unresolved risks.
+            </p>
+          </div>
+
+          <!-- Pillar 9 -->
+          <div class="rounded-xl bg-surface-card border border-surface-border p-6 hover:border-blue-500/40 hover:bg-surface-hover transition-all duration-200">
+            <div class="w-10 h-10 rounded-lg bg-blue-500/10 text-blue-400 flex items-center justify-center font-mono font-bold text-sm mb-4">
+              09
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2">Default Quality Bar</h3>
+            <p class="text-slate-400 text-sm leading-relaxed">
+              6-point checklist prior to delivery: Correct, consistent, minimal, readable, free of redundant comments, and thoroughly validated.
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Installation & Setup Walkthrough -->
+    <section id="installation" class="py-20 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-bold text-white mb-3">Install in 60 Seconds</h2>
+        <p class="text-slate-400 text-base">Select your operating system to view the instant terminal setup commands.</p>
+      </div>
+
+      <!-- OS Switcher Tabs -->
+      <div class="flex items-center justify-center p-1 bg-surface-card border border-surface-border rounded-xl mb-6 max-w-md mx-auto">
+        <button onclick="setInstallTab('win')" id="tab-btn-win" 
+                class="flex-1 py-2 px-3 text-xs sm:text-sm font-medium rounded-lg bg-blue-600 text-white transition-all cursor-pointer min-h-[40px]">
+          Windows (PowerShell)
+        </button>
+        <button onclick="setInstallTab('mac')" id="tab-btn-mac" 
+                class="flex-1 py-2 px-3 text-xs sm:text-sm font-medium rounded-lg text-slate-300 hover:text-white transition-all cursor-pointer min-h-[40px]">
+          macOS & Linux
+        </button>
+        <button onclick="setInstallTab('gui')" id="tab-btn-gui" 
+                class="flex-1 py-2 px-3 text-xs sm:text-sm font-medium rounded-lg text-slate-300 hover:text-white transition-all cursor-pointer min-h-[40px]">
+          Antigravity UI
+        </button>
+      </div>
+
+      <!-- Code Box -->
+      <div class="rounded-2xl bg-surface-card border border-surface-border shadow-2xl overflow-hidden">
+        <div class="flex items-center justify-between px-5 py-3 border-b border-surface-border bg-surface">
+          <div class="flex items-center space-x-2">
+            <div class="w-3 h-3 rounded-full bg-red-500/80"></div>
+            <div class="w-3 h-3 rounded-full bg-yellow-500/80"></div>
+            <div class="w-3 h-3 rounded-full bg-green-500/80"></div>
+            <span class="text-xs font-mono text-slate-400 ml-2" id="install-title">PowerShell Command</span>
+          </div>
+          <button onclick="copyInstallSnippet()" aria-label="Copy installation script" 
+                  class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-surface-hover hover:bg-slate-700 text-slate-200 text-xs font-mono border border-surface-border transition-all cursor-pointer min-h-[36px]">
+            <svg class="w-4 h-4 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+            </svg>
+            <span id="install-copy-text">Copy Script</span>
+          </button>
+        </div>
+
+        <div class="p-6 font-mono text-xs sm:text-sm text-slate-200 overflow-x-auto leading-relaxed">
+          <pre id="install-code-block" class="whitespace-pre">New-Item -ItemType Directory -Path "$HOME\.gemini\config\skills\clean-code-responses" -Force
+Copy-Item -Path ".\GEMINI.md" -Destination "$HOME\.gemini\GEMINI.md" -Force
+Copy-Item -Path ".\skills\clean-code-responses\SKILL.md" -Destination "$HOME\.gemini\config\skills\clean-code-responses\SKILL.md" -Force
+Write-Host "Antigravity Coding Quality Kit installed!" -ForegroundColor Green</pre>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-surface-border bg-oled py-12">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
+      <div class="flex items-center space-x-3">
+        <div class="w-7 h-7 rounded bg-blue-600 flex items-center justify-center text-white">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+        </div>
+        <span class="text-sm font-medium text-slate-300">Antigravity Coding Quality Kit • Created with UI/UX Pro Max</span>
+      </div>
+
+      <div class="flex items-center space-x-6 text-xs text-slate-400">
+        <span>MIT License</span>
+        <span>•</span>
+        <a href="https://github.com/angelolockdev/antigravity-coding-quality-kit" class="hover:text-white transition-colors">GitHub Repository</a>
+        <span>•</span>
+        <a href="https://antigravity.google" target="_blank" rel="noopener" class="hover:text-white transition-colors">Antigravity Docs</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-24 opacity-0 transition-all duration-300 bg-surface-card border border-emerald-500/50 text-emerald-300 px-4 py-3 rounded-xl shadow-2xl flex items-center gap-2.5 font-sans text-sm">
+    <svg class="w-5 h-5 text-emerald-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+    </svg>
+    <span id="toast-msg">Copied to clipboard!</span>
+  </div>
+
+  <!-- Interactive JavaScript logic -->
+  <script>
+    const snippets = {
+      win: {
+        title: "PowerShell Setup Script",
+        code: `New-Item -ItemType Directory -Path "$HOME\\.gemini\\config\\skills\\clean-code-responses" -Force
+Copy-Item -Path ".\\GEMINI.md" -Destination "$HOME\\.gemini\\GEMINI.md" -Force
+Copy-Item -Path ".\\skills\\clean-code-responses\\SKILL.md" -Destination "$HOME\\.gemini\\config\\skills\\clean-code-responses\\SKILL.md" -Force
+Write-Host "Antigravity Coding Quality Kit installed!" -ForegroundColor Green`
+      },
+      mac: {
+        title: "Bash / Zsh Setup Script",
+        code: `mkdir -p ~/.gemini/config/skills/clean-code-responses
+cp ./GEMINI.md ~/.gemini/GEMINI.md
+cp ./skills/clean-code-responses/SKILL.md ~/.gemini/config/skills/clean-code-responses/SKILL.md
+echo "Antigravity Coding Quality Kit installed!"`
+      },
+      gui: {
+        title: "Antigravity IDE GUI Steps",
+        code: `1. Open Antigravity IDE
+2. In the Agent panel: Click ... -> Customizations -> Rules -> + Global
+3. Name the rule "Global Quality Rules" and paste the contents of GEMINI.md
+4. Copy skills/clean-code-responses/SKILL.md into ~/.gemini/config/skills/
+5. Reload Antigravity window to activate!`
+      }
+    };
+
+    let currentTab = 'win';
+
+    function setInstallTab(tab) {
+      currentTab = tab;
+      const btnWin = document.getElementById('tab-btn-win');
+      const btnMac = document.getElementById('tab-btn-mac');
+      const btnGui = document.getElementById('tab-btn-gui');
+      const title = document.getElementById('install-title');
+      const codeBlock = document.getElementById('install-code-block');
+
+      [btnWin, btnMac, btnGui].forEach(btn => {
+        btn.classList.remove('bg-blue-600', 'text-white');
+        btn.classList.add('text-slate-300');
+      });
+
+      if (tab === 'win') btnWin.classList.add('bg-blue-600', 'text-white');
+      if (tab === 'mac') btnMac.classList.add('bg-blue-600', 'text-white');
+      if (tab === 'gui') btnGui.classList.add('bg-blue-600', 'text-white');
+
+      title.textContent = snippets[tab].title;
+      codeBlock.textContent = snippets[tab].code;
+    }
+
+    function showToast(text) {
+      const toast = document.getElementById('toast');
+      const msg = document.getElementById('toast-msg');
+      msg.textContent = text;
+      toast.classList.remove('translate-y-24', 'opacity-0');
+      toast.classList.add('translate-y-0', 'opacity-100');
+
+      setTimeout(() => {
+        toast.classList.add('translate-y-24', 'opacity-0');
+        toast.classList.remove('translate-y-0', 'opacity-100');
+      }, 2500);
+    }
+
+    function copyQuickCmd() {
+      const text = document.getElementById('quick-cmd').textContent;
+      navigator.clipboard.writeText(text).then(() => {
+        const copyText = document.getElementById('quick-copy-text');
+        copyText.textContent = 'Copied!';
+        showToast('Clone command copied to clipboard!');
+        setTimeout(() => { copyText.textContent = 'Copy'; }, 2000);
+      });
+    }
+
+    function copyInstallSnippet() {
+      const code = snippets[currentTab].code;
+      navigator.clipboard.writeText(code).then(() => {
+        const copyBtnText = document.getElementById('install-copy-text');
+        copyBtnText.textContent = 'Copied!';
+        showToast('Install script copied to clipboard!');
+        setTimeout(() => { copyBtnText.textContent = 'Copy Script'; }, 2000);
+      });
+    }
+  </script>
+</body>
+</html>
