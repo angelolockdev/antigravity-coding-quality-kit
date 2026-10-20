@@ -49,9 +49,29 @@ Before installing the kit, ensure you have:
 
 ## Installation
 
-You can install the kit globally for all your Antigravity sessions in under a minute using either the automated commands or manual placement.
+You can install the kit globally for all your Antigravity sessions in under a minute using our instant 1-line installers, automated scripts, or manual UI placement.
 
-### Automated Setup
+### ⚡ Instant One-Liner Setup
+
+#### Windows (PowerShell)
+```powershell
+irm https://raw.githubusercontent.com/angelolockdev/antigravity-coding-quality-kit/main/install.ps1 | iex
+```
+
+#### macOS & Linux (Bash / Zsh)
+```bash
+curl -fsSL https://raw.githubusercontent.com/angelolockdev/antigravity-coding-quality-kit/main/install.sh | bash
+```
+
+#### Verify Installation Anytime
+```powershell
+# Run the built-in diagnostic checker
+.\scripts\verify-installation.ps1
+```
+
+---
+
+### Local Script Setup
 
 #### Windows (PowerShell)
 ```powershell

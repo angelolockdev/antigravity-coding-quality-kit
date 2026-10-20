@@ -17,14 +17,14 @@
   <meta property="og:url" content="https://angelolockdev.github.io/antigravity-coding-quality-kit/">
   <meta property="og:title" content="Antigravity Coding Quality Kit — Zero Slop, Verified Diffs">
   <meta property="og:description" content="Eliminate AI slop, enforce surgical code diffs, and mandate real test verification in Google Antigravity IDE.">
-  <meta property="og:image" content="https://angelolockdev.github.io/antigravity-coding-quality-kit/og-image.png">
+  <meta property="og:image" content="https://angelolockdev.github.io/antigravity-coding-quality-kit/og-image.svg">
 
   <!-- Twitter -->
   <meta property="twitter:card" content="summary_large_image">
   <meta property="twitter:url" content="https://angelolockdev.github.io/antigravity-coding-quality-kit/">
   <meta property="twitter:title" content="Antigravity Coding Quality Kit — Zero Slop, Verified Diffs">
   <meta property="twitter:description" content="Eliminate AI slop, enforce surgical code diffs, and mandate real test verification in Google Antigravity IDE.">
-  <meta property="twitter:image" content="https://angelolockdev.github.io/antigravity-coding-quality-kit/og-image.png">
+  <meta property="twitter:image" content="https://angelolockdev.github.io/antigravity-coding-quality-kit/og-image.svg">
 
   <!-- Fonts Preconnect -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -631,10 +631,7 @@
         </div>
 
         <div class="p-6 font-mono text-xs sm:text-sm text-slate-200 overflow-x-auto leading-relaxed">
-          <pre id="install-code-block" class="whitespace-pre">New-Item -ItemType Directory -Path "$HOME\.gemini\config\skills\clean-code-responses" -Force
-Copy-Item -Path ".\GEMINI.md" -Destination "$HOME\.gemini\GEMINI.md" -Force
-Copy-Item -Path ".\skills\clean-code-responses\SKILL.md" -Destination "$HOME\.gemini\config\skills\clean-code-responses\SKILL.md" -Force
-Write-Host "Antigravity Coding Quality Kit installed!" -ForegroundColor Green</pre>
+          <pre id="install-code-block" class="whitespace-pre">irm https://raw.githubusercontent.com/angelolockdev/antigravity-coding-quality-kit/main/install.ps1 | iex</pre>
         </div>
       </div>
     </section>
@@ -824,18 +821,12 @@ Write-Host "Antigravity Coding Quality Kit installed!" -ForegroundColor Green</p
   <script>
     const snippets = {
       win: {
-        title: "PowerShell Setup Script",
-        code: `New-Item -ItemType Directory -Path "$HOME\\.gemini\\config\\skills\\clean-code-responses" -Force
-Copy-Item -Path ".\\GEMINI.md" -Destination "$HOME\\.gemini\\GEMINI.md" -Force
-Copy-Item -Path ".\\skills\\clean-code-responses\\SKILL.md" -Destination "$HOME\\.gemini\\config\\skills\\clean-code-responses\\SKILL.md" -Force
-Write-Host "Antigravity Coding Quality Kit installed!" -ForegroundColor Green`
+        title: "PowerShell 1-Liner (Automated)",
+        code: `irm https://raw.githubusercontent.com/angelolockdev/antigravity-coding-quality-kit/main/install.ps1 | iex`
       },
       mac: {
-        title: "Bash / Zsh Setup Script",
-        code: `mkdir -p ~/.gemini/config/skills/clean-code-responses
-cp ./GEMINI.md ~/.gemini/GEMINI.md
-cp ./skills/clean-code-responses/SKILL.md ~/.gemini/config/skills/clean-code-responses/SKILL.md
-echo "Antigravity Coding Quality Kit installed!"`
+        title: "Bash / Zsh 1-Liner (Automated)",
+        code: `curl -fsSL https://raw.githubusercontent.com/angelolockdev/antigravity-coding-quality-kit/main/install.sh | bash`
       },
       gui: {
         title: "Antigravity IDE GUI Steps",
