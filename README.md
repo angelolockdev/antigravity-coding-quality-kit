@@ -1,10 +1,11 @@
 # Antigravity Coding Quality Kit
 
+[![Live Demo: GitHub Pages](https://img.shields.io/badge/Live%20Demo-GitHub%20Pages-brightgreen.svg)](https://angelolockdev.github.io/antigravity-coding-quality-kit/)
 [![Rules: GEMINI.md](https://img.shields.io/badge/Rules-GEMINI.md-blue.svg)](GEMINI.md)
 [![Skill: clean--code--responses](https://img.shields.io/badge/Skill-clean--code--responses-emerald.svg)](skills/clean-code-responses/SKILL.md)
 [![Platform: Windows%20%7C%20macOS%20%7C%20Linux](https://img.shields.io/badge/Platform-Windows%20%7C%20macOS%20%7C%20Linux-darkblue.svg)](#installation)
-[![UI/UX: Pro Max](https://img.shields.io/badge/UI%2FUX-Pro%20Max%20Compliant-purple.svg)](index.html)
-[![WCAG: AAA](https://img.shields.io/badge/Accessibility-WCAG%20AAA-green.svg)](index.html)
+[![UI/UX: Pro Max](https://img.shields.io/badge/UI%2FUX-Pro%20Max%20Compliant-purple.svg)](https://angelolockdev.github.io/antigravity-coding-quality-kit/)
+[![WCAG: AAA](https://img.shields.io/badge/Accessibility-WCAG%20AAA-green.svg)](https://angelolockdev.github.io/antigravity-coding-quality-kit/)
 
 A battle-tested quality framework and agent skill kit for **Google Antigravity IDE**. Eliminates AI slop, enforces minimal surgical code diffs, mandates verification before claiming success, and guides autonomous agents to deliver production-grade code.
 
@@ -214,7 +215,7 @@ Prompt the agent:
 
 ## UI/UX Web Showcase
 
-This repository includes an interactive web presentation file ([`index.html`](index.html)) crafted according to the **UI/UX Pro Max** guidelines:
+This repository includes an interactive web showcase live at **[angelolockdev.github.io/antigravity-coding-quality-kit](https://angelolockdev.github.io/antigravity-coding-quality-kit/)** crafted according to the **UI/UX Pro Max** guidelines:
 
 - **Theme:** OLED Deep Dark Mode (`#0B0F19` background with `#1E293B` elevated cards).
 - **Typography:** IBM Plex Sans for interface text and JetBrains Mono for code.
